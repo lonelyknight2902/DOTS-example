@@ -242,7 +242,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
-  rotation: 20
+  rotation: 5
 --- !u!1 &379191259
 GameObject:
   m_ObjectHideFlags: 0
@@ -949,7 +949,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
-  rotation: 20
+  rotation: 5
 --- !u!1 &964452652
 GameObject:
   m_ObjectHideFlags: 0
@@ -1427,7 +1427,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
-  rotation: 20
+  rotation: 5
 --- !u!1 &1134383578
 GameObject:
   m_ObjectHideFlags: 0
@@ -1547,7 +1547,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
-  rotation: 20
+  rotation: 5
 --- !u!1 &1372671105
 GameObject:
   m_ObjectHideFlags: 0
