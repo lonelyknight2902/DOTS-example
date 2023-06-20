@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Burst;
 using Unity.Collections;
 using Unity.Entities;
 using UnityEngine;
 
+[BurstCompile]
 public partial struct DestroyerSystem : ISystem
 {
+    [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
         // EntityCommandBuffer ecb = new EntityCommandBuffer(Allocator.TempJob);

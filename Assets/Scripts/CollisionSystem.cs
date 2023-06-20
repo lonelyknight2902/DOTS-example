@@ -10,6 +10,7 @@ using Unity.Physics.Systems;
 using Unity.Transforms;
 using UnityEngine;
 
+[BurstCompile]
 public partial struct CollisionSystem : ISystem
 {
     public void OnCreate(ref SystemState state)
