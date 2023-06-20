@@ -21,7 +21,7 @@ public partial struct EnemySystem : ISystem
     public void OnUpdate(ref SystemState state)
     {
         var deltaTime = SystemAPI.Time.DeltaTime;
-        EntityCommandBuffer ecb = new EntityCommandBuffer(Allocator.Temp);
+        // EntityCommandBuffer ecb = new EntityCommandBuffer(Allocator.Temp);
         // foreach (var (transform, speed, direction) in SystemAPI.Query<RefRW<LocalTransform>,RefRO<Movement>, RefRW<Enemy>>())
         // {
         //     if (transform.ValueRW.Position.x < -22 && direction.ValueRW.direction.x < 0)

@@ -22,17 +22,6 @@ public partial struct HpSystem : ISystem
     }
 }
 
-// public partial struct HpJob : IJobEntity
-// {
-//     void Execute(in HP hp)
-//     {
-//         if (hp.hitpoint <= 0)
-//         {
-//             
-//         }
-//     }
-// }
-
 public struct HP : IComponentData
 {
     public int hitpoint;
