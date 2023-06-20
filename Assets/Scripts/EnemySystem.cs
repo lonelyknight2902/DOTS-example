@@ -49,10 +49,11 @@ public partial struct EnemySystem : ISystem
     }
 }
 
+[WithAll(typeof(Alive))]
 public partial struct EnemyJob : IJobEntity
 {
     public float deltaTime;
-    void Execute(ref LocalTransform transform, in Movement speed, ref Direction direction, in Alive alive)
+    void Execute(ref LocalTransform transform, in Movement speed, ref Direction direction)
     {
         transform.Position += direction.direction * speed.speed * deltaTime;
     }

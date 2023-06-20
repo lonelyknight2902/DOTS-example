@@ -8,6 +8,7 @@ public class GunAuthoring : MonoBehaviour
 {
     public GameObject BulletPrefab;
     public Transform FirePoint;
+    public float ShootRate;
 
     class GunBaker : Baker<GunAuthoring>
     {
@@ -18,6 +19,8 @@ public class GunAuthoring : MonoBehaviour
             {
                 BulletPrefab = GetEntity(authoring.BulletPrefab, TransformUsageFlags.Dynamic),
                 FirePoint = GetEntity(authoring.FirePoint, TransformUsageFlags.Dynamic),
+                NextSpawnTime = 0.0f,
+                ShootRate = authoring.ShootRate
             });
         }
     }
@@ -27,4 +30,6 @@ public struct Gun : IComponentData
 {
     public Entity BulletPrefab;
     public Entity FirePoint;
+    public float NextSpawnTime;
+    public float ShootRate;
 }
