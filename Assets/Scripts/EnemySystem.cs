@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Collections;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
@@ -20,31 +21,57 @@ public partial struct EnemySystem : ISystem
     public void OnUpdate(ref SystemState state)
     {
         var deltaTime = SystemAPI.Time.DeltaTime;
-        foreach (var (transform, speed, direction) in SystemAPI.Query<RefRW<LocalTransform>,RefRO<Movement>, RefRW<Enemy>>())
-        {
-            if (transform.ValueRW.Position.x < -22 && direction.ValueRW.direction.x < 0)
-            {
-                direction.ValueRW.direction = direction.ValueRO.direction * -1;
-            }
-            
-            if (transform.ValueRW.Position.x > 22 && direction.ValueRW.direction.x > 0)
-            {
-                direction.ValueRW.direction = direction.ValueRO.direction * -1;
-            }
+        EntityCommandBuffer ecb = new EntityCommandBuffer(Allocator.Temp);
+        // foreach (var (transform, speed, direction) in SystemAPI.Query<RefRW<LocalTransform>,RefRO<Movement>, RefRW<Enemy>>())
+        // {
+        //     if (transform.ValueRW.Position.x < -22 && direction.ValueRW.direction.x < 0)
+        //     {
+        //         direction.ValueRW.direction = direction.ValueRO.direction * -1;
+        //     }
+        //     
+        //     if (transform.ValueRW.Position.x > 22 && direction.ValueRW.direction.x > 0)
+        //     {
+        //         direction.ValueRW.direction = direction.ValueRO.direction * -1;
+        //     }
+        //
+        //     transform.ValueRW.Position += direction.ValueRO.direction * speed.ValueRO.speed * deltaTime;
+        // }
+        //
+        // foreach (var (transform, rotation) in SystemAPI.Query<RefRW<LocalTransform>,RefRO<Rotation>>())
+        // {
+        //     transform.ValueRW = transform.ValueRW.RotateY(rotation.ValueRO.rotationSpeed * deltaTime);
+        // }
 
-            transform.ValueRW.Position += direction.ValueRO.direction * speed.ValueRO.speed * deltaTime;
-        }
-
-        foreach (var (transform, rotation) in SystemAPI.Query<RefRW<LocalTransform>,RefRO<Rotation>>())
+        new EnemyJob
         {
-            transform.ValueRW = transform.ValueRW.RotateY(rotation.ValueRO.rotationSpeed * deltaTime);
-        }
+            deltaTime = deltaTime
+        }.ScheduleParallel();
     }
 }
 
-public struct Enemy: IComponentData
+public partial struct EnemyJob : IJobEntity
+{
+    public float deltaTime;
+    void Execute(ref LocalTransform transform, in Movement speed, ref Direction direction, in Alive alive)
+    {
+        transform.Position += direction.direction * speed.speed * deltaTime;
+    }
+}
+
+public struct Enemy : IComponentData
+{
+    
+}
+
+
+public struct Direction: IComponentData
 {
     public float3 direction;
+}
+
+public struct Alive : IComponentData
+{
+    
 }
 
 public struct Rotation : IComponentData

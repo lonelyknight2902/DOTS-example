@@ -6,7 +6,8 @@ using UnityEngine;
 
 public struct Spawner : IComponentData
 {
-    public Entity prefab;
+    public Entity bluePrefab;
+    public Entity redPrefab;
     public float3 spawnPosition;
     public float nextSpawnTime;
     public float spawnRate;

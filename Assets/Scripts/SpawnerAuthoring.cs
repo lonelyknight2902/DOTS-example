@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class SpawnerAuthoring : MonoBehaviour
 {
-    public GameObject prefab;
+    public GameObject redPrefab;
+    public GameObject bluePrefab;
     public float spawnRate;
     
     
@@ -18,7 +19,8 @@ public class SpawnerBaker : Baker<SpawnerAuthoring>
         var entity = GetEntity(TransformUsageFlags.None);
         AddComponent(entity, new Spawner
         {
-            prefab = GetEntity(authoring.prefab, TransformUsageFlags.None),
+            bluePrefab = GetEntity(authoring.bluePrefab, TransformUsageFlags.None),
+            redPrefab = GetEntity(authoring.redPrefab, TransformUsageFlags.None),
             nextSpawnTime = 0.0f,
             spawnPosition = authoring.transform.position,
             spawnRate = authoring.spawnRate,

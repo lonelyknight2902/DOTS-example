@@ -12,6 +12,10 @@ public class BulletAuthoring : MonoBehaviour
         {
             var entity = GetEntity(TransformUsageFlags.Dynamic);
             AddComponent<Bullet>(entity);
+            AddComponent(entity, new Damage
+            {
+                damage = 5,
+            });
         }
     }
 }
@@ -19,4 +23,9 @@ public class BulletAuthoring : MonoBehaviour
 public struct Bullet : IComponentData
 {
     public float3 velocity;
+}
+
+public struct Damage : IComponentData
+{
+    public int damage;
 }

@@ -7,6 +7,7 @@ using UnityEngine;
 public class RedEnemyAuthoring : MonoBehaviour
 {
     public float speed;
+    public int hitpoint;
     public class RedBaker : Baker<RedEnemyAuthoring>
     {
         public override void Bake(RedEnemyAuthoring authoring)
@@ -16,9 +17,15 @@ public class RedEnemyAuthoring : MonoBehaviour
             {
                 speed = authoring.speed
             });
-            AddComponent(entity, new Enemy
+            AddComponent(entity, new Direction
             {
-                direction = new float3(1, 0, 0)
+                direction = new float3(0, 0, -1)
+            });
+            AddComponent<Enemy>(entity);
+            AddComponent<Alive>(entity);
+            AddComponent(entity, new HP
+            {
+                hitpoint = authoring.hitpoint,
             });
         }
     }

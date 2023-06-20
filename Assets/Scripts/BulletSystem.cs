@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Entities;
+using Unity.Mathematics;
 using Unity.Transforms;
 using UnityEngine;
 
@@ -19,9 +20,18 @@ public partial struct BulletSystem : ISystem
     public void OnUpdate(ref SystemState state)
     {
         var deltaTime = SystemAPI.Time.DeltaTime;
-        foreach (var (transform, bullet) in SystemAPI.Query<RefRW<LocalTransform>, RefRO<Bullet>>())
+        new BulletJob
         {
-            transform.ValueRW.Position += bullet.ValueRO.velocity * deltaTime;
-        }
+            deltaTime = deltaTime
+        }.ScheduleParallel();
+    }
+}
+
+public partial struct BulletJob : IJobEntity
+{
+    public float deltaTime;
+    void Execute(ref LocalTransform transform, in Bullet bullet)
+    {
+        transform.Position += bullet.velocity * deltaTime;
     }
 }
