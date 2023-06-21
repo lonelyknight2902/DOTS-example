@@ -19,19 +19,19 @@ public partial struct BulletSystem : ISystem
 
     public void OnUpdate(ref SystemState state)
     {
-        var deltaTime = SystemAPI.Time.DeltaTime;
-        new BulletJob
-        {
-            deltaTime = deltaTime
-        }.ScheduleParallel();
+        // var deltaTime = SystemAPI.Time.DeltaTime;
+        // new BulletJob
+        // {
+        //     deltaTime = deltaTime
+        // }.ScheduleParallel();
     }
 }
-
-public partial struct BulletJob : IJobEntity
-{
-    public float deltaTime;
-    void Execute(ref LocalTransform transform, in Bullet bullet)
-    {
-        transform.Position += bullet.velocity * deltaTime;
-    }
-}
+//
+// public partial struct BulletJob : IJobEntity
+// {
+//     public float deltaTime;
+//     void Execute(ref LocalTransform transform, in Bullet bullet)
+//     {
+//         transform.Position += bullet.velocity * deltaTime;
+//     }
+// }

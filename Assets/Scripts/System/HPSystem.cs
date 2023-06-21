@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Component;
 using Unity.Collections;
 using Unity.Entities;
 using Unity.VisualScripting;
@@ -33,16 +34,11 @@ public partial struct HpJob : IJobEntity
 {
     public EntityCommandBuffer.ParallelWriter ecb;
 
-    public void Execute([ChunkIndexInQuery] int chunkIndex, Entity entity, in HP hp) 
+    public void Execute([ChunkIndexInQuery] int chunkIndex, Entity entity, in Hp hp) 
     {
         if (hp.hitpoint <= 0)
         {
-            ecb.RemoveComponent<Alive>(chunkIndex, entity);
+            ecb.AddComponent<Destroyed>(chunkIndex, entity);
         }
     }
-}
-
-public struct HP : IComponentData
-{
-    public int hitpoint;
 }

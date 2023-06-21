@@ -156,7 +156,7 @@ MonoBehaviour:
     type: 3}
   bluePrefab: {fileID: 165780066709838468, guid: 8eb19991a5703fd4199add0304d68ccb,
     type: 3}
-  spawnRate: 0.1
+  spawnRate: 1
 --- !u!4 &273180651
 Transform:
   m_ObjectHideFlags: 0
@@ -563,7 +563,6 @@ GameObject:
   - component: {fileID: 1876725385}
   - component: {fileID: 1876725388}
   - component: {fileID: 1876725387}
-  - component: {fileID: 1876725386}
   - component: {fileID: 1876725389}
   m_Layer: 0
   m_Name: Gun
@@ -588,29 +587,6 @@ Transform:
   m_Father: {fileID: 799194708}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
---- !u!136 &1876725386
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1876725384}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!23 &1876725387
 MeshRenderer:
   m_ObjectHideFlags: 0

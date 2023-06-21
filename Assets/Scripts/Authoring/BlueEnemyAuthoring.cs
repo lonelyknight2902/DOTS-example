@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Component;
 using Unity.Entities;
 using Unity.Mathematics;
 using UnityEngine;
@@ -14,21 +15,13 @@ public class BlueEnemyAuthoring : MonoBehaviour
         public override void Bake(BlueEnemyAuthoring authoring)
         {
             var entity = GetEntity(TransformUsageFlags.Dynamic);
-            AddComponent(entity, new Movement
+            AddComponent(entity, new Move
             {
-                speed = authoring.speed
-            });
-            AddComponent(entity, new Direction
-            {
-                direction = new float3(0, 0, -1)
-            });
-            AddComponent(entity, new Rotation
-            {
-                rotationSpeed = authoring.rotation
+                speed = authoring.speed,
+                direction = new float3(0,0,-1)
             });
             AddComponent<Enemy>(entity);
-            AddComponent<Alive>(entity);
-            AddComponent(entity, new HP
+            AddComponent(entity, new Hp
             {
                 hitpoint = authoring.hitpoint,
             });

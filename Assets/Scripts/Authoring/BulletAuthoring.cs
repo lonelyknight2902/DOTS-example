@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Component;
 using Unity.Entities;
 using Unity.Mathematics;
 using UnityEngine;
@@ -11,21 +12,16 @@ public class BulletAuthoring : MonoBehaviour
         public override void Bake(BulletAuthoring authoring)
         {
             var entity = GetEntity(TransformUsageFlags.Dynamic);
-            AddComponent<Bullet>(entity);
+            AddComponent<Move>(entity);
             AddComponent(entity, new Damage
             {
                 damage = 5,
             });
+            AddComponent<Bullet>(entity);
         }
     }
 }
 
-public struct Bullet : IComponentData
+public struct Bullet : IComponentData, IEnableableComponent
 {
-    public float3 velocity;
-}
-
-public struct Damage : IComponentData
-{
-    public int damage;
 }

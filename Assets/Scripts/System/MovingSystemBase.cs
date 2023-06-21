@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Component;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
@@ -9,9 +10,9 @@ public partial struct MovingSystemBase : ISystem
 {
     public void OnUpdate(ref SystemState state)
     {
-        foreach (var (transform, speed) in SystemAPI.Query<RefRW<LocalTransform>, RefRO<Speed>>())
+        foreach (var (transform, move) in SystemAPI.Query<RefRW<LocalTransform>, RefRO<Move>>().WithNone<Player>())
         {
-            transform.ValueRW.Position += new float3(1, 0, 0) * speed.ValueRO.value * SystemAPI.Time.DeltaTime;
+            transform.ValueRW.Position += move.ValueRO.direction * move.ValueRO.speed * SystemAPI.Time.DeltaTime;
         }
     }
 }

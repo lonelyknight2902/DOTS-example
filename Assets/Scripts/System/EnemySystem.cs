@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Component;
 using Unity.Burst;
 using Unity.Collections;
 using Unity.Entities;
@@ -22,7 +23,7 @@ public partial struct EnemySystem : ISystem
 
     public void OnUpdate(ref SystemState state)
     {
-        var deltaTime = SystemAPI.Time.DeltaTime;
+        // var deltaTime = SystemAPI.Time.DeltaTime;
         // EntityCommandBuffer ecb = new EntityCommandBuffer(Allocator.Temp);
         // foreach (var (transform, speed, direction) in SystemAPI.Query<RefRW<LocalTransform>,RefRO<Movement>, RefRW<Enemy>>())
         // {
@@ -44,40 +45,20 @@ public partial struct EnemySystem : ISystem
         //     transform.ValueRW = transform.ValueRW.RotateY(rotation.ValueRO.rotationSpeed * deltaTime);
         // }
 
-        new EnemyJob
-        {
-            deltaTime = deltaTime
-        }.ScheduleParallel();
+        // new EnemyJob
+        // {
+        //     deltaTime = deltaTime
+        // }.ScheduleParallel();
     }
 }
 
-[WithAll(typeof(Alive))]
-public partial struct EnemyJob : IJobEntity
-{
-    public float deltaTime;
-    void Execute(ref LocalTransform transform, in Movement speed, ref Direction direction)
-    {
-        transform.Position += direction.direction * speed.speed * deltaTime;
-    }
-}
+// [WithNone(typeof(Destroyed))]
+// public partial struct EnemyJob : IJobEntity
+// {
+//     public float deltaTime;
+//     void Execute(ref LocalTransform transform, in Move move)
+//     {
+//         transform.Position += move.direction * move.speed * deltaTime;
+//     }
+// }
 
-public struct Enemy : IComponentData
-{
-    
-}
-
-
-public struct Direction: IComponentData
-{
-    public float3 direction;
-}
-
-public struct Alive : IComponentData
-{
-    
-}
-
-public struct Rotation : IComponentData
-{
-    public float rotationSpeed;
-}

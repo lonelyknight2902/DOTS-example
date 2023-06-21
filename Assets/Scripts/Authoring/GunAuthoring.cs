@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Component;
 using Unity.Entities;
 using Unity.Transforms;
 using UnityEngine;
@@ -15,7 +16,7 @@ public class GunAuthoring : MonoBehaviour
         public override void Bake(GunAuthoring authoring)
         {
             var entity = GetEntity(TransformUsageFlags.Dynamic);
-            AddComponent(entity, new Gun
+            AddComponent(entity, new Shoot
             {
                 BulletPrefab = GetEntity(authoring.BulletPrefab, TransformUsageFlags.Dynamic),
                 FirePoint = GetEntity(authoring.FirePoint, TransformUsageFlags.Dynamic),
@@ -26,10 +27,3 @@ public class GunAuthoring : MonoBehaviour
     }
 }
 
-public struct Gun : IComponentData
-{
-    public Entity BulletPrefab;
-    public Entity FirePoint;
-    public float NextSpawnTime;
-    public float ShootRate;
-}

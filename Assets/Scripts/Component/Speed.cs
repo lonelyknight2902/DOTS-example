@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using Unity.Entities;
 using UnityEngine;
 
-public struct Speed : IComponentData
+namespace Component
 {
-    public float value;
+    public struct Speed : IComponentData
+    {
+        public float value;
+    }
 }

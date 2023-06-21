@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Component;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
@@ -20,7 +21,7 @@ public partial struct PlayerSystem : ISystem
     public void OnUpdate(ref SystemState state)
     {
         float deltaTime = SystemAPI.Time.DeltaTime;
-        foreach (var (transform, speed) in SystemAPI.Query<RefRW<LocalTransform>, RefRO<Movement>>().WithAll<Player>())
+        foreach (var (transform, speed) in SystemAPI.Query<RefRW<LocalTransform>, RefRO<Move>>().WithAll<Player>())
         {
             if (Input.GetKey(KeyCode.A))
             {

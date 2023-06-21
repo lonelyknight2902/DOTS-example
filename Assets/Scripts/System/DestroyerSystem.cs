@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Component;
 using Unity.Burst;
 using Unity.Collections;
 using Unity.Entities;
@@ -31,8 +32,7 @@ public partial struct DestroyerSystem : ISystem
     }
 }
 
-[WithAll(typeof(Enemy))]
-[WithNone(typeof(Alive))]
+[WithAll(typeof(Destroyed))]
 public partial struct DestroyerJob : IJobEntity
 {
     public EntityCommandBuffer.ParallelWriter ecb;

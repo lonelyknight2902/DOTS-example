@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Component;
 using Unity.Collections;
 using Unity.Entities;
 using Unity.Mathematics;
@@ -10,7 +11,7 @@ public partial struct GunSystem : ISystem
 {
     public void OnCreate(ref SystemState state)
     {
-        state.RequireForUpdate<Gun>();
+        state.RequireForUpdate<Shoot>();
     }
 
     public void OnDestroy(ref SystemState state)
@@ -30,7 +31,7 @@ public partial struct GunSystem : ISystem
         //     isPressedSpace = false;
         // }
         var isPressedSpace = Input.GetKey(KeyCode.Space);
-        foreach (var (localToWorld, gun) in SystemAPI.Query<RefRW<LocalToWorld>, RefRW<Gun>>())
+        foreach (var (localToWorld, gun) in SystemAPI.Query<RefRW<LocalToWorld>, RefRW<Shoot>>())
         {
             
             // Debug.Log(gun.ValueRO.NextSpawnTime);
@@ -50,12 +51,12 @@ public partial struct GunSystem : ISystem
                         Scale = SystemAPI.GetComponent<LocalTransform>(gun.ValueRO.BulletPrefab).Scale,
                     });
                 
-                    state.EntityManager.SetComponentData(bulletInstance, new Bullet
+                    state.EntityManager.SetComponentData(bulletInstance, new Move()
                     {
-                        velocity = localToWorld.ValueRO.Up * 20f,
+                        speed = 20f,
+                        direction = localToWorld.ValueRO.Up,
                     });
                     gun.ValueRW.NextSpawnTime = gun.ValueRO.ShootRate;
-                    Debug.Log(gun.ValueRO.NextSpawnTime);
                 }
                 else
                 {
