@@ -63,17 +63,17 @@ namespace System
                 var destroyableB = false;
                 if (enemyLookup.HasComponent(triggerEvent.EntityA))
                 {
-                    ecb.AddComponent(triggerEvent.EntityA, new Hit
-                    {
-                        damage = damageLookup.GetRefRO(triggerEvent.EntityB).ValueRO.damage
-                    });
-                    // if (enemyLookup.IsComponentEnabled(triggerEvent.EntityA))
+                    // ecb.AddComponent(triggerEvent.EntityA, new Hit
                     // {
-                    //     ecb.SetComponentEnabled<Enemy>(triggerEvent.EntityA, false);
-                    //     
-                    //     
-                    //     destroyableA = true;
-                    // }
+                    //     damage = damageLookup.GetRefRO(triggerEvent.EntityB).ValueRO.damage
+                    // });
+                    if (enemyLookup.IsComponentEnabled(triggerEvent.EntityA))
+                    {
+                        ecb.SetComponentEnabled<Enemy>(triggerEvent.EntityA, false);
+                        
+                        
+                        destroyableA = true;
+                    }
                     //a is enemy
                 }
                 else if (bulletLookup.HasComponent(triggerEvent.EntityA))
@@ -88,16 +88,16 @@ namespace System
 
                 if (enemyLookup.HasComponent(triggerEvent.EntityB))
                 {
-                    ecb.AddComponent(triggerEvent.EntityA, new Hit
-                    {
-                        damage = damageLookup.GetRefRO(triggerEvent.EntityA).ValueRO.damage
-                    });
-                    // if (enemyLookup.IsComponentEnabled(triggerEvent.EntityB))
+                    // ecb.AddComponent(triggerEvent.EntityA, new Hit
                     // {
-                    //     ecb.SetComponentEnabled<Enemy>(triggerEvent.EntityB, false);
-                    //     
-                    //     destroyableB = true;
-                    // }
+                    //     damage = damageLookup.GetRefRO(triggerEvent.EntityA).ValueRO.damage
+                    // });
+                    if (enemyLookup.IsComponentEnabled(triggerEvent.EntityB))
+                    {
+                        ecb.SetComponentEnabled<Enemy>(triggerEvent.EntityB, false);
+                        
+                        destroyableB = true;
+                    }
                     //b is enemy
                 }
                 else if (bulletLookup.HasComponent(triggerEvent.EntityB))
@@ -110,14 +110,19 @@ namespace System
                     //b is bullet
                 }
 
-                if (destroyableA)
-                {
-                    ecb.AddComponent<Destroyed>(triggerEvent.EntityA);
-                }
+                // if (destroyableA)
+                // {
+                //     ecb.AddComponent<Destroyed>(triggerEvent.EntityA);
+                // }
+                //
+                // if (destroyableB)
+                // {
+                //     ecb.AddComponent<Destroyed>(triggerEvent.EntityB);
+                // }
 
-                if (destroyableB)
+                if (destroyableA && destroyableB)
                 {
-                    ecb.AddComponent<Destroyed>(triggerEvent.EntityB);
+                    
                 }
             }
         }
