@@ -18,7 +18,7 @@ public class BlueEnemyAuthoring : MonoBehaviour
             AddComponent(entity, new Move
             {
                 speed = authoring.speed,
-                direction = new float3(0,0,-1)
+                direction = new float3(1,0,0)
             });
             AddComponent<Enemy>(entity);
             AddComponent(entity, new Hp

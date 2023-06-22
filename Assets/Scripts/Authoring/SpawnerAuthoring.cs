@@ -9,8 +9,9 @@ public class SpawnerAuthoring : MonoBehaviour
     public GameObject redPrefab;
     public GameObject bluePrefab;
     public float spawnRate;
-    
-    
+    public bool diamond;
+    public bool square;
+    public bool horizontal;
 }
 
 public class SpawnerBaker : Baker<SpawnerAuthoring>
@@ -25,6 +26,9 @@ public class SpawnerBaker : Baker<SpawnerAuthoring>
             nextSpawnTime = 0.0f,
             spawnPosition = authoring.transform.position,
             spawnRate = authoring.spawnRate,
+            diamond = authoring.diamond,
+            square = authoring.square,
+            horizontal = authoring.horizontal,
         });
     }
 }

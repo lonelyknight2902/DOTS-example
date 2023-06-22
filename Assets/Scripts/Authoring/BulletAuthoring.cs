@@ -18,10 +18,16 @@ public class BulletAuthoring : MonoBehaviour
                 damage = 5,
             });
             AddComponent<Bullet>(entity);
+            AddComponent<BulletId>(entity);
         }
     }
 }
 
 public struct Bullet : IComponentData, IEnableableComponent
 {
+}
+
+public struct BulletId : IComponentData
+{
+    public int id;
 }

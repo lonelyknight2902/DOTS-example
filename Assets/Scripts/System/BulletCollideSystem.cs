@@ -2,6 +2,7 @@
 using Unity.Collections;
 using Unity.Entities;
 using Unity.Physics;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace System
@@ -70,8 +71,6 @@ namespace System
                     if (enemyLookup.IsComponentEnabled(triggerEvent.EntityA))
                     {
                         ecb.SetComponentEnabled<Enemy>(triggerEvent.EntityA, false);
-                        
-                        
                         destroyableA = true;
                     }
                     //a is enemy
@@ -122,7 +121,17 @@ namespace System
 
                 if (destroyableA && destroyableB)
                 {
-                    
+                    var entity = ecb.CreateEntity();
+                    ecb.AddComponent(entity, new DamageEvent
+                    {
+                        DamageEntity = isBulletA ? triggerEvent.EntityA : triggerEvent.EntityB,
+                        TargetEntity = isEnemyA ? triggerEvent.EntityA : triggerEvent.EntityB
+                    });
+                    // ecb.AddComponent(isEnemyA ? triggerEvent.EntityA : triggerEvent.EntityB, new DamageEvent
+                    // {
+                    //     DamageEntity = isBulletA ? triggerEvent.EntityA : triggerEvent.EntityB,
+                    //     TargetEntity = isEnemyA ? triggerEvent.EntityA : triggerEvent.EntityB
+                    // });
                 }
             }
         }

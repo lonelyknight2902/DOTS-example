@@ -40,5 +40,9 @@ public partial struct HpJob : IJobEntity
         {
             ecb.AddComponent<Destroyed>(chunkIndex, entity);
         }
+        else
+        {
+            ecb.SetComponentEnabled<Enemy>(chunkIndex, entity, true);
+        }
     }
 }

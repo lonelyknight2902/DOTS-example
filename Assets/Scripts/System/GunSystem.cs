@@ -56,6 +56,10 @@ public partial struct GunSystem : ISystem
                         speed = 20f,
                         direction = localToWorld.ValueRO.Up,
                     });
+                    state.EntityManager.SetComponentData(bulletInstance, new BulletId
+                    {
+                        id = 3,
+                    });
                     gun.ValueRW.NextSpawnTime = gun.ValueRO.ShootRate;
                 }
                 else

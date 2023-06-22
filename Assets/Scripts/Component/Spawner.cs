@@ -13,6 +13,9 @@ namespace Component
         public float3 spawnPosition;
         public float nextSpawnTime;
         public float spawnRate;
+        public bool diamond;
+        public bool square;
+        public bool horizontal;
     }
 }
 
