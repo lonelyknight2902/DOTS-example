@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Component;
 using Config;
 using Unity.Burst;
+using Unity.Collections;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
@@ -32,40 +33,77 @@ public partial struct SpawnerSystem : ISystem
     public void OnUpdate(ref SystemState state)
     {
         var config = SystemAPI.GetSingleton<ConfigComponent>();
+        var ecb = new EntityCommandBuffer(Allocator.Temp);
         foreach (var spawner in SystemAPI.Query<RefRW<Spawner>>())
         {
             if (config.spawnTime > 0 && spawner.ValueRO.nextSpawnTime < SystemAPI.Time.ElapsedTime)
             {
                 float randomForm = randomFormation.NextFloat(0f, 3f);
+                float spawnbound = 2f;
+                float randomPos = randomPosition.NextFloat(-spawnbound, spawnbound);
                 if (randomForm > 2f)
                 {
                     if (spawner.ValueRO.diamond)
                     {
-                        DiamondSpawn(ref state, spawner, 3);
+                        Entity formation = ecb.CreateEntity();
+                        ecb.AddComponent<DiamondFormation>(formation);
+                        ecb.SetComponent(formation, new DiamondFormation
+                        {
+                            radius = 3
+                        });
+                        ecb.AddComponent<FormationSpawn>(formation);
+                        ecb.SetComponent(formation, new FormationSpawn
+                        {
+                            enemy = spawner.ValueRO.bluePrefab,
+                            spawnPosition = new float3(spawner.ValueRO.spawnPosition.x, spawner.ValueRO.spawnPosition.y, randomPos)
+                        });
+                        // DiamondSpawn(ref state, spawner, 3);
                     }
                     else
                     {
                         randomForm -= 1f;
                     }
                 }
-
                 if (randomForm > 1f && randomForm <= 2f)
                 {
                     if (spawner.ValueRO.square)
                     {
-                        SquareSpawn(ref state, spawner, 3);
+                        Entity formation = ecb.CreateEntity();
+                        ecb.AddComponent<SquareFormation>(formation);
+                        ecb.SetComponent(formation, new SquareFormation
+                        {
+                            side = 3
+                        });
+                        ecb.AddComponent<FormationSpawn>(formation);
+                        ecb.SetComponent(formation, new FormationSpawn
+                        {
+                            enemy = spawner.ValueRO.bluePrefab,
+                            spawnPosition = new float3(spawner.ValueRO.spawnPosition.x, spawner.ValueRO.spawnPosition.y, randomPos)
+                        });
+                        // SquareSpawn(ref state, spawner, 3);
                     }
                     else
                     {
                         randomForm -= 1f;
                     }
                 }
-
                 if (randomForm <= 1f)
                 {
                     if (spawner.ValueRO.horizontal)
                     {
-                        HorizontalSpawn(ref state, spawner, 3);
+                        Entity formation = ecb.CreateEntity();
+                        ecb.AddComponent<HorizontalFormation>(formation);
+                        ecb.SetComponent(formation, new HorizontalFormation
+                        {
+                            length = 3,
+                        });
+                        ecb.AddComponent<FormationSpawn>(formation);
+                        ecb.SetComponent(formation, new FormationSpawn
+                        {
+                            enemy = spawner.ValueRO.bluePrefab,
+                            spawnPosition = new float3(spawner.ValueRO.spawnPosition.x, spawner.ValueRO.spawnPosition.y, randomPos)
+                        });
+                        // HorizontalSpawn(ref state, spawner, 3);
                     }
                 }
 
@@ -84,6 +122,8 @@ public partial struct SpawnerSystem : ISystem
             }
             
         }
+        ecb.Playback(state.EntityManager);
+        ecb.Dispose();
     }
 
     private void ProcessSpawner(ref SystemState state, RefRW<Spawner> spawner)

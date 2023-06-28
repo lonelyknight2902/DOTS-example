@@ -6,5 +6,6 @@ namespace Component
     public struct FormationSpawn : IComponentData
     {
         public float3 spawnPosition;
+        public Entity enemy;
     }
 }

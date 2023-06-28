@@ -32,13 +32,12 @@ namespace System
     }
 }
 
-[WithAll((typeof(DiamondFormation)))]
 public partial struct DiamondFormationJob : IJobEntity
 {
     public EntityCommandBuffer.ParallelWriter ecb;
-    private void Execute([ChunkIndexInQuery] int chunkIndex, ref FormationSpawn formationSpawn, Entity entity)
+    private void Execute([ChunkIndexInQuery] int chunkIndex, ref FormationSpawn formationSpawn, ref DiamondFormation formation, Entity entity)
     {
-        DiamondSpawn(chunkIndex,3, formationSpawn.spawnPosition, formationSpawn.enemy);
+        DiamondSpawn(chunkIndex,formation.radius, formationSpawn.spawnPosition, formationSpawn.enemy);
         ecb.DestroyEntity(chunkIndex, entity);
     }
 

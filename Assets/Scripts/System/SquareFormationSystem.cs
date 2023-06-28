@@ -36,9 +36,9 @@ namespace System
 public partial struct SquareFormationJob : IJobEntity
 {
     public EntityCommandBuffer.ParallelWriter ecb;
-    public void Execute([ChunkIndexInQuery] int chunkIndex, ref FormationSpawn formationSpawn, Entity entity)
+    public void Execute([ChunkIndexInQuery] int chunkIndex, ref FormationSpawn formationSpawn, ref SquareFormation formation, Entity entity)
     {
-        SquareSpawn(chunkIndex, 3, formationSpawn.spawnPosition, formationSpawn.enemy);
+        SquareSpawn(chunkIndex, formation.side, formationSpawn.spawnPosition, formationSpawn.enemy);
         ecb.DestroyEntity(chunkIndex, entity);
     }
     
