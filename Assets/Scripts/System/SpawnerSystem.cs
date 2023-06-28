@@ -55,7 +55,7 @@ public partial struct SpawnerSystem : ISystem
                         ecb.SetComponent(formation, new FormationSpawn
                         {
                             enemy = spawner.ValueRO.bluePrefab,
-                            spawnPosition = new float3(spawner.ValueRO.spawnPosition.x, spawner.ValueRO.spawnPosition.y, randomPos)
+                            spawnPosition = new float3(spawner.ValueRO.spawnPosition.x, spawner.ValueRO.spawnPosition.y, spawner.ValueRO.spawnPosition.z + randomPos)
                         });
                         // DiamondSpawn(ref state, spawner, 3);
                     }
@@ -78,7 +78,7 @@ public partial struct SpawnerSystem : ISystem
                         ecb.SetComponent(formation, new FormationSpawn
                         {
                             enemy = spawner.ValueRO.bluePrefab,
-                            spawnPosition = new float3(spawner.ValueRO.spawnPosition.x, spawner.ValueRO.spawnPosition.y, randomPos)
+                            spawnPosition = new float3(spawner.ValueRO.spawnPosition.x, spawner.ValueRO.spawnPosition.y, spawner.ValueRO.spawnPosition.z + randomPos)
                         });
                         // SquareSpawn(ref state, spawner, 3);
                     }
@@ -101,7 +101,7 @@ public partial struct SpawnerSystem : ISystem
                         ecb.SetComponent(formation, new FormationSpawn
                         {
                             enemy = spawner.ValueRO.bluePrefab,
-                            spawnPosition = new float3(spawner.ValueRO.spawnPosition.x, spawner.ValueRO.spawnPosition.y, randomPos)
+                            spawnPosition = new float3(spawner.ValueRO.spawnPosition.x, spawner.ValueRO.spawnPosition.y, spawner.ValueRO.spawnPosition.z + randomPos)
                         });
                         // HorizontalSpawn(ref state, spawner, 3);
                     }

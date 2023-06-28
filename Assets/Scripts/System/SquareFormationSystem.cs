@@ -28,11 +28,13 @@ namespace System
             
             state.Dependency = job.Schedule(state.Dependency);
             
+            // state.Dependency.Complete();
+            // ecb.Playback(state.EntityManager);
+            // ecb.Dispose();
         }
     }
 }
 
-[WithAll(typeof(SquareFormation))]
 public partial struct SquareFormationJob : IJobEntity
 {
     public EntityCommandBuffer.ParallelWriter ecb;

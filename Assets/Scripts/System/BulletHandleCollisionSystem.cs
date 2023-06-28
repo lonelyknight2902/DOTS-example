@@ -27,7 +27,7 @@ namespace System
                 });
                 ecb.AddComponent<Destroyed>(damageEvent.ValueRO.DamageEntity);
                 // ecb.RemoveComponent<DamageEvent>(entity);
-                ecb.DestroyEntity(entity);
+                ecb.AddComponent<Destroyed>(entity);
             }
             ecb.Playback(state.EntityManager);
             ecb.Dispose();
