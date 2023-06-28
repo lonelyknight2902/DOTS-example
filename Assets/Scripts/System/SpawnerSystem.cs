@@ -133,45 +133,44 @@ public partial struct SpawnerSystem : ISystem
     private void SquareSpawn(ref SystemState state, RefRW<Spawner> spawner, int side)
     {
         float spawnbound = 2f;
-            float randomEne = randomEnemy.NextFloat(-1, 1);
-            float randomPos = randomPosition.NextFloat(-spawnbound, spawnbound);
-            for (int i = 0; i < side; i++)
+        float randomEne = randomEnemy.NextFloat(-1, 1);
+        float randomPos = randomPosition.NextFloat(-spawnbound, spawnbound);
+        for (int i = 0; i < side; i++)
+        {
+            if (i == 0 || i == side - 1)
             {
-                if (i == 0 || i == side - 1)
+                for (int j = 0; j < side; j++)
                 {
-                    for (int j = 0; j < side; j++)
-                    {
-                        Entity newEntity;
-                        if (randomEne > 0)
-                        {
-                            newEntity = state.EntityManager.Instantiate(spawner.ValueRO.bluePrefab);
-                        }
-                        else
-                        {
-                            newEntity = state.EntityManager.Instantiate(spawner.ValueRO.redPrefab);
-                        }
-                        state.EntityManager.SetComponentData(newEntity, LocalTransform.FromPosition(new float3(spawner.ValueRO.spawnPosition.x - j*4, spawner.ValueRO.spawnPosition.y, spawner.ValueRO.spawnPosition.z + randomPos - i*4)));
-                    }
-                }
-                else
-                {
-                    Entity newEntity1;
-                    Entity newEntity2;
+                    Entity newEntity;
                     if (randomEne > 0)
                     {
-                        newEntity1 = state.EntityManager.Instantiate(spawner.ValueRO.bluePrefab);
-                        newEntity2 = state.EntityManager.Instantiate(spawner.ValueRO.bluePrefab);
+                        newEntity = state.EntityManager.Instantiate(spawner.ValueRO.bluePrefab);
                     }
                     else
                     {
-                        newEntity1 = state.EntityManager.Instantiate(spawner.ValueRO.redPrefab);
-                        newEntity2 = state.EntityManager.Instantiate(spawner.ValueRO.redPrefab);
+                        newEntity = state.EntityManager.Instantiate(spawner.ValueRO.redPrefab);
                     }
-                    state.EntityManager.SetComponentData(newEntity1, LocalTransform.FromPosition(new float3(spawner.ValueRO.spawnPosition.x, spawner.ValueRO.spawnPosition.y, spawner.ValueRO.spawnPosition.z + randomPos - i*4)));
-                    state.EntityManager.SetComponentData(newEntity2, LocalTransform.FromPosition(new float3( spawner.ValueRO.spawnPosition.x - (side-1)*4, spawner.ValueRO.spawnPosition.y, spawner.ValueRO.spawnPosition.z + randomPos - i*4)));
-
+                    state.EntityManager.SetComponentData(newEntity, LocalTransform.FromPosition(new float3(spawner.ValueRO.spawnPosition.x - j*4, spawner.ValueRO.spawnPosition.y, spawner.ValueRO.spawnPosition.z + randomPos - i*4)));
                 }
             }
+            else
+            {
+                Entity newEntity1;
+                Entity newEntity2;
+                if (randomEne > 0)
+                {
+                    newEntity1 = state.EntityManager.Instantiate(spawner.ValueRO.bluePrefab);
+                    newEntity2 = state.EntityManager.Instantiate(spawner.ValueRO.bluePrefab);
+                }
+                else
+                {
+                    newEntity1 = state.EntityManager.Instantiate(spawner.ValueRO.redPrefab);
+                    newEntity2 = state.EntityManager.Instantiate(spawner.ValueRO.redPrefab);
+                }
+                state.EntityManager.SetComponentData(newEntity1, LocalTransform.FromPosition(new float3(spawner.ValueRO.spawnPosition.x, spawner.ValueRO.spawnPosition.y, spawner.ValueRO.spawnPosition.z + randomPos - i*4)));
+                state.EntityManager.SetComponentData(newEntity2, LocalTransform.FromPosition(new float3( spawner.ValueRO.spawnPosition.x - (side-1)*4, spawner.ValueRO.spawnPosition.y, spawner.ValueRO.spawnPosition.z + randomPos - i*4)));
+            }
+        }
     }
 
     private void DiamondSpawn(ref SystemState state, RefRW<Spawner> spawner, int radius)
