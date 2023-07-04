@@ -1,4 +1,5 @@
 ﻿using Component;
+using CortexDeveloper.ECSMessages.Service;
 using Unity.Collections;
 using Unity.Entities;
 using Unity.Physics;
@@ -24,7 +25,6 @@ namespace System
             public ComponentLookup<Bullet> bulletLookup;
             public ComponentLookup<Damage> damageLookup;
             public EntityCommandBuffer ecb;
-
             private bool isEnemy(Entity e)
             {
                 return enemyLookup.HasComponent(e);

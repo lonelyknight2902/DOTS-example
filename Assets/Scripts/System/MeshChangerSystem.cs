@@ -8,6 +8,11 @@ namespace System
     [UpdateBefore(typeof(HitSystem))]
     public partial struct MeshChangerSystem : ISystem
     {
+        public void OnCreate(ref SystemState state)
+        {
+            state.RequireForUpdate<MeshChanger>();
+        }
+
         public void OnUpdate(ref SystemState state)
         {
             var meshEntity = SystemAPI.GetSingleton<MeshChanger>();

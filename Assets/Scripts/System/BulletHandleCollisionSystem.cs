@@ -1,7 +1,10 @@
 ﻿using Component;
+using CortexDeveloper.ECSMessages.Service;
 // using Config;
 using Unity.Collections;
 using Unity.Entities;
+using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 namespace System
 {
@@ -25,6 +28,7 @@ namespace System
                 {
                     damage = damage,
                 });
+                
                 ecb.AddComponent<Destroyed>(damageEvent.ValueRO.DamageEntity);
                 // ecb.RemoveComponent<DamageEvent>(entity);
                 ecb.AddComponent<Destroyed>(entity);

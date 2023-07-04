@@ -19,7 +19,10 @@ public class PlayerAuthoring : MonoBehaviour
                 speed = authoring.speed,
                 direction = new float3(0,0,0)
             });
-            AddComponent(entity, new Player());
+            AddComponent(entity, new Player
+            {
+                score = 0
+            });
         }
     }
 }

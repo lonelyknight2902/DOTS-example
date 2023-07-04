@@ -10,6 +10,11 @@ public partial struct MovingSystemBase : ISystem
 {
     public void OnUpdate(ref SystemState state)
     {
+        bool inPlay = SystemAPI.GetSingleton<GameStatus>().inPlay;
+        if (!inPlay)
+        {
+            return;
+        }
         foreach (var (transform, move) in SystemAPI.Query<RefRW<LocalTransform>, RefRO<Move>>().WithNone<Player>())
         {
             transform.ValueRW.Position += move.ValueRO.direction * move.ValueRO.speed * SystemAPI.Time.DeltaTime;

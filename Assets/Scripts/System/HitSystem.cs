@@ -1,4 +1,5 @@
 ﻿using Component;
+using CortexDeveloper.ECSMessages.Service;
 using Unity.Collections;
 using Unity.Entities;
 

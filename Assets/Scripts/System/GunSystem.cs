@@ -21,6 +21,11 @@ public partial struct GunSystem : ISystem
 
     public void OnUpdate(ref SystemState state)
     {
+        bool inPlay = SystemAPI.GetSingleton<GameStatus>().inPlay;
+        if (!inPlay)
+        {
+            return;
+        }
         // bool isPressedSpace;
         // if (Input.GetKey(KeyCode.Space))
         // {

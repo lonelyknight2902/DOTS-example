@@ -32,6 +32,11 @@ public partial struct SpawnerSystem : ISystem
     [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
+        bool inPlay = SystemAPI.GetSingleton<GameStatus>().inPlay;
+        if (!inPlay)
+        {
+            return;
+        }
         var config = SystemAPI.GetSingleton<ConfigComponent>();
         var ecb = new EntityCommandBuffer(Allocator.Temp);
         foreach (var spawner in SystemAPI.Query<RefRW<Spawner>>())
