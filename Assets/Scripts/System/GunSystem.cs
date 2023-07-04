@@ -58,7 +58,7 @@ public partial struct GunSystem : ISystem
                 
                     state.EntityManager.SetComponentData(bulletInstance, new Move()
                     {
-                        speed = 20f,
+                        speed = 30f,
                         direction = localToWorld.ValueRO.Up,
                     });
                     state.EntityManager.SetComponentData(bulletInstance, new BulletId
